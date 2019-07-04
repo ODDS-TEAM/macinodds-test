@@ -62,7 +62,7 @@ describe('macinodds_admin_test', () => {
         cy.get('#spec').type(device.spec, { force: true }).should("have.value", 'macinodds test spec1 [TEST]');;
         cy.get('#img-show-upload').click();
         cy.get('#btn-upload-file').click({ force: true });
-        cy.fixture(device.image, 'base64').then(fileContent => {
+        cy.fixture('img_mac.png', 'base64').then(fileContent => {
             cy.get('#button-select-crop').upload({ fileContent, fileName: 'img_mac.png', mimeType: 'image/png' }, { subjectType: 'input' });
         });
         cy.get('#button-cropping').click();
@@ -90,7 +90,7 @@ describe('macinodds_admin_test', () => {
         cy.get('#spec').type(device.spec, { force: true }).should("have.value", 'macinodds test spec1 [TEST]');;
         cy.get('#img-show-upload').click();
         cy.get('#btn-upload-file').click({ force: true });
-        cy.fixture(device.image, 'base64').then(fileContent => {
+        cy.fixture('img_mac.png', 'base64').then(fileContent => {
             cy.get('#button-select-crop').upload({ fileContent, fileName: 'img_mac.png', mimeType: 'image/png' }, { subjectType: 'input' });
         });
         cy.get('#button-cropping').click({ force: true });
