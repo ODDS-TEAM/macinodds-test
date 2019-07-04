@@ -145,9 +145,10 @@ describe('macinodds_admin_test', () => {
 
     it(".View admin ,check after delete device", () => {
 
-        cy.contains("name device1 cypress [TEST]2");
-        cy.contains('fakeSerial0001[TEST]2');
-        cy.contains('macinodds test spec1 [TEST]2');
+        cy.get('[class="list-group"]').children();
+        // cy.contains("name device1 cypress [TEST]2");
+        // cy.contains('fakeSerial0001[TEST]2');
+        // cy.contains('macinodds test spec1 [TEST]2');
 
     })
 
