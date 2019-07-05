@@ -65,13 +65,14 @@ describe('macinodds_admin_test', () => {
         cy.fixture('add_device.jpg', 'base64').then(fileContent => {
             cy.get('#button-select-crop').upload({ fileContent, fileName: 'add_device.jpg', mimeType: 'image/*' }, { subjectType: 'input' });
         });
-        cy.get('#button-cropping').click();
-        cy.get('[name="unavailable"]').click();
+        cy.wait(300)
+        cy.get('#button-cropping').click({ force: true });
+        cy.get('[name="unavailable"]').click({ force: true });
         cy.get('#holder').should('have.value', '').type(device.holder, { force: true });
         cy.contains("เบอร์ผู้ยืม");
-        cy.get('#tel').type(device.tel, { delay: 100 });
+        cy.get('#tel').type(device.tel, { force: true }, { delay: 100 });
         // cy.get('[class="btn btn-default-blue"]').click();
-        cy.get('[class="btn btn-default-black"]').click();
+        cy.get('[class="btn btn-default-black"]').click({ force: true });
         // check clear funtion
         cy.get('#name').should('have.value', "")
         cy.get('#serial').should('have.value', "")
@@ -80,34 +81,24 @@ describe('macinodds_admin_test', () => {
         cy.get('#holder').should('have.value', "")
         cy.get('#tel').should('have.value', "")
         cy.wait(100);
-
+        cy.contains('View admin').click();
     })
 
     it(".Add Device . Add new device (check post api)", () => {
-
+        cy.contains('Add device').click();
         cy.get('#name').type(device.name, { force: true }).should("have.value", 'name device1 cypress [TEST]');
         cy.get('#serial').type(device.serial, { force: true }).should("have.value", 'fakeSerial0001[TEST]');;
         cy.get('#spec').type(device.spec, { force: true }).should("have.value", 'macinodds test spec1 [TEST]');;
         cy.get('#img-show-upload').click();
         cy.get('#btn-upload-file').click({ force: true });
         cy.fixture('img_mac.png', 'base64').then(fileContent => {
-            cy.get('#button-select-crop').upload({ fileContent, fileName: 'img_mac.png', mimeType: 'image/png' }, { subjectType: 'input' });
+            cy.get('#button-select-crop').upload({ fileContent, fileName: 'img_mac.png', mimeType: 'image/*' }, { subjectType: 'input' });
         });
-        cy.get('#button-cropping').click({ force: true });
-        cy.get('[name="available"]').click();
+        cy.wait(300)
+        cy.get('#button-cropping').click({ force: true }, { delay: 100 });
         cy.get('[class="btn btn-default-blue"]').click();
-
     })
 
-    it(".View admin , check new device", () => {
-
-        cy.get('[class="list-group"]').children();
-        cy.get('#name-0').contains("name device1 cypress [TEST]");
-        cy.get('#serial-0').contains('fakeSerial0001[TEST]');
-        cy.get('#spec-0').contains('macinodds test spec1 [TEST]');
-        cy.get('#status-av-0').contains('ว่าง').should('have.css', 'color');
-
-    })
 
     it(".Edit device , check form ", () => {
 
@@ -123,8 +114,8 @@ describe('macinodds_admin_test', () => {
         cy.get('#name').type(2, { force: true }).should("have.value", 'name device1 cypress [TEST]2');
         cy.get('#serial').type(2, { force: true }).should("have.value", 'fakeSerial0001[TEST]2');
         cy.get('#spec').type(2, { force: true }).should("have.value", 'macinodds test spec1 [TEST]2');
-
-        cy.get('[class="btn btn-default-blue"]').click();
+        cy.get('[class="btn btn-default-black"]').focus();
+        cy.get('[class="btn btn-default-blue"]').click({ force: true });
 
     })
 
@@ -143,16 +134,12 @@ describe('macinodds_admin_test', () => {
 
     })
 
-    it(".View admin ,check after delete device", () => {
+    // it(".View admin ,check after delete device", () => {
 
-        cy.get('[class="list-group"]').children();
-        // cy.contains("name device1 cypress [TEST]2");
-        // cy.contains('fakeSerial0001[TEST]2');
-        // cy.contains('macinodds test spec1 [TEST]2');
+    //     cy.get('[class="list-group"]').children();
+    //     // cy.contains("name device1 cypress [TEST]2");
+    //     // cy.contains('fakeSerial0001[TEST]2');
+    //     // cy.contains('macinodds test spec1 [TEST]2');
 
-    })
-
-
-
-
+    // })
 })
